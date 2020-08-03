@@ -1,0 +1,20 @@
+# Create Screen Session
+screen -S "XX"
+
+# Resume Screen Session
+screen -r "XX"
+
+# Kill Screen Session
+screen -XS "XX" quit
+
+# Access Tensoboard Remotely
+ssh -L 7007:localhost:6006 misp144
+
+# Training
+python main.py --mode=train --model=cnn10 --fold=1 --device=0
+
+# Training with some changes
+python main.py --mode=train --model=cnn_oct --fold=10 --alpha=0.125 --device=0 && python main.py --mode=train --model=cnn_oct --fold=10 --alpha=0.5 --device=0 && python main.py --mode=train --model=cnn_oct_test --fold=10 --alpha=0.75 --device=0
+
+# Test
+python main.py --mode=test --model=cnn_oct_test --fold=1 --device=0 --kernel_size=3 --alpha=0.125 --test_date=2020-05-28-01:46:33
