@@ -1,1 +1,3 @@
-.ideas
+.ideas/
+runs/
+__pycache__/

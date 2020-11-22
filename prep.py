@@ -1,4 +1,5 @@
 import os
+import glob
 
 
 def load_dataset(path, fold=None, phase=None, valid=False):
@@ -30,17 +31,9 @@ def load_dataset(path, fold=None, phase=None, valid=False):
         subjects_dict[subject] = os.path.join(path, subject)
 
     for key in subjects_dict.keys():
-        inputs, targets = [], []
-        full = os.path.join(subjects_dict[key], 'full_3mm')
-        quarter = os.path.join(subjects_dict[key], 'quarter_3mm')
-
-        for image in sorted(os.listdir(quarter)):
-            inputs.append(os.path.join(quarter, image))
-
-        for image in sorted(os.listdir(full)):
-            targets.append(os.path.join(full, image))
-
-        assert len(targets) == len(inputs)
+        inputs = sorted(glob.glob(os.path.join(subjects_dict[key], 'quarter_3mm', '*.IMA')))
+        targets = sorted(glob.glob(os.path.join(subjects_dict[key], 'full_3mm', '*.IMA')))
+        assert len(inputs) == len(targets)
 
         for i in range(len(inputs)):
             image_pair_dict['quarter'].append(inputs[i])
@@ -51,9 +44,9 @@ def load_dataset(path, fold=None, phase=None, valid=False):
 
 def main():
     for i in range(1, 11):
-        trainset = load_dataset(path='../../Datasets/AAPM', fold=i, phase="train")
-        validset = load_dataset(path='../../Datasets/AAPM', fold=i, phase="valid")
-        testset = load_dataset(path='../../Datasets/AAPM', fold=i, phase="test")
+        trainset = load_dataset(path='/home/dongkyu/Datasets/AAPM', fold=i, phase="train", valid=True)
+        validset = load_dataset(path='/home/dongkyu/Datasets/AAPM', fold=i, phase="valid", valid=True)
+        testset = load_dataset(path='/home/dongkyu/Datasets/AAPM', fold=i, phase="test", valid=True)
 
         print("Fold", i, len(trainset["full"]), len(validset["full"]), len(testset["full"]),
               len(trainset["full"]) + len(validset["full"]) + len(testset["full"]))
