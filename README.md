@@ -27,10 +27,10 @@ For test, you need to specify some arguments.
 
 Test with redcnn
 ```
-python test_ct.py --model=redcnn --test_date=$TEST_DATE --subject=L506
+python test_ct.py --model=redcnn --test_date=$TEST_DATE --test_epoch=best --subject=L506 --desc="redcnn"
 ```
 
 Test with Octave convolution
 ```
-python test_ct.py --model=cnn_oct --alpha=$ALPHA --test_date=$TEST_DATE --subject=L506
+python test_ct.py --model=cnn_oct --alpha=$ALPHA --test_date=$TEST_DATE --test_epoch=best --subject=L506 --desc="cnn_oct"
 ```
